@@ -16,29 +16,30 @@ class Board extends React.Component {
     <Square 
       value={this.props.squares[i]}
       onClick ={() => this.props.onClick(i)}
+      key={i}
       />
     );
   }
 
+  render_row(i) {
+    const arr = Array(3).fill(null);
+    const row = arr.map((_, index) => {
+      return this.renderSquare(i*3 + index);
+    });
+    return row;
+  }
+
+  render_grid() {
+    const arr = Array(3).fill(null);
+    const grid = arr.map((_, index) => {
+      return <div className="board-row" key={index}>{this.render_row(index)}</div>
+    });
+    return grid;
+  }
+
   render() {
     return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
+      <div>{this.render_grid()}</div>
     );
   }
 }
@@ -85,7 +86,6 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <div>hello</div>
         </div>
       </div>
     );
