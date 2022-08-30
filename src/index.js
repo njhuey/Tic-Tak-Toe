@@ -18,7 +18,7 @@ class Board extends React.Component {
       value={this.props.squares[i]}
       onClick={() => this.props.onClick(i)}
       line={this.props.line}
-      key={i}
+      key={i.toString()}
       val={i}
       />
     );
@@ -35,7 +35,7 @@ class Board extends React.Component {
   render_grid() {
     const arr = Array(3).fill(null);
     const grid = arr.map((_, index) => {
-      return <div className="board-row" key={index}>{this.render_row(index)}</div>
+      return <div className="board-row" key={index.toString()}>{this.render_row(index)}</div>
     });
     return grid;
   }
@@ -70,6 +70,14 @@ class Game extends React.Component {
       moveCounter: moveCounter,
     });
   }
+
+  reset() {
+    this.setState({
+      squares: Array(9).fill(null),
+      xIsNext: true,
+      moveCounter: 0,
+    });
+  }
   
   render() {
     const squares = this.state.squares;
@@ -88,14 +96,17 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
+          <div className="game-info"> {status} </div>
           <Board 
             squares={squares}
             onClick={(i) => this.handleClick(i)}
             line={line}
           />
-        </div>
-        <div className="game-info">
-          <div>{status}</div>
+          <button 
+            className="reset-button"
+            type="button"
+            onClick={() => this.reset()}>Reset Game
+          </button>
         </div>
       </div>
     );
