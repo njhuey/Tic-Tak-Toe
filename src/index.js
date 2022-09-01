@@ -102,11 +102,12 @@ class Game extends React.Component {
             onClick={(i) => this.handleClick(i)}
             line={line}
           />
+          {(line || this.state.moveCounter == 9) && 
           <button 
             className="reset-button"
             type="button"
             onClick={() => this.reset()}>Reset Game
-          </button>
+          </button>}
         </div>
       </div>
     );
